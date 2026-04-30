@@ -33,27 +33,27 @@ classifiers = [
 ]
 
 dependencies = [
-    "sphinx>=8.0",
-    "sphinx-needs>=5.0",
-    "myst-parser>=4.0",
-    "sphinx-rtd-theme>=2.0",
-    "sphinxcontrib-plantuml>=0.30",
-    "sphinxcontrib-svg2pdfconverter>=1.2",
-    "linkml>=1.6",
-    "linkml-runtime>=1.6",
-    "pytest>=8.0",
-    "pyyaml>=6.0",
-    "rdflib>=7.0",
+    "sphinx>=9.1.0",
+    "sphinx-needs>=8.0.0",
+    "myst-parser>=5.0.0",
+    "sphinx-rtd-theme>=3.1.0",
+    "sphinxcontrib-plantuml>=0.31",
+    "sphinxcontrib-svg2pdfconverter>=2.1.0",
+    "linkml>=1.10.0",
+    "linkml-runtime>=1.10.0",
+    "pytest>=9.0.3",
+    "pyyaml>=6.0.3",
+    "rdflib>=7.6.0",
     # Pillow is required by sphinxcontrib-plantuml whenever needflow / plantuml
     # diagrams use scaling attributes; without it Sphinx emits a warning and
     # silently drops the scale.
-    "pillow>=10.0",
+    "pillow>=12.2.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "ruff>=0.5",
-    "sphinx-autobuild>=2024.4",
+    "ruff>=0.15.12",
+    "sphinx-autobuild>=2025.8.25",
 ]
 
 [project.scripts]
@@ -63,9 +63,9 @@ reqif-bridge      = "reqif_bridge.cli:main"
 needs-to-jsonld   = "needs_to_jsonld.cli:main"
 
 [project.urls]
-Homepage      = "https://github.com/your-org/sphinx-needs-template"
-Documentation = "https://github.com/your-org/sphinx-needs-template#readme"
-Issues        = "https://github.com/your-org/sphinx-needs-template/issues"
+Homepage      = "https://github.com/mleist/sphinx-needs-template/tree/main"
+Documentation = "https://github.com/mleist/sphinx-needs-template#readme"
+Issues        = "https://github.com/mleist/sphinx-needs-template/issues"
 
 # -----------------------------------------------------------------------------
 # Packaging: pull every public src package and the demo module under test.
