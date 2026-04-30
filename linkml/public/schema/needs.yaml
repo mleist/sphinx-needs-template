@@ -1,0 +1,215 @@
+id: https://example.com/garden/needs
+name: garden_needs
+title: Garden Needs Schema
+description: >-
+  LinkML schema for traceable requirements engineering on a small home-garden
+  project (lawn mowing, planting beds, hosting a garden party).
+  All need types inherit from the abstract class `Need` and share core slots
+  (id, title, description, tags, status, ...). Type-specific slots like
+  `area` on user stories are added in the respective subclasses.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  garden: https://example.com/garden/
+
+default_prefix: garden
+default_range:  string
+
+imports:
+  - linkml:types
+
+# ---------------------------------------------------------------------------
+# Enumerations
+# ---------------------------------------------------------------------------
+
+enums:
+
+  StatusEnum:
+    description: Lifecycle status of a need.
+    permissible_values:
+      open:        { description: Open / not yet started }
+      in_progress: { description: Work in progress }
+      implemented: { description: Implementation finished }
+      accepted:    { description: Accepted by stakeholder }
+      rejected:    { description: Rejected }
+
+  AreaEnum:
+    description: Garden area a user story applies to (controlled vocabulary).
+    permissible_values:
+      front_yard:    { description: Front yard }
+      back_yard:     { description: Back yard }
+      vegetable_bed: { description: Vegetable bed }
+      flower_bed:    { description: Flower bed }
+      patio:         { description: Patio (used for the garden party) }
+
+# ---------------------------------------------------------------------------
+# Slots — shared and type-specific
+# ---------------------------------------------------------------------------
+
+slots:
+
+  # --- shared (defined on Need) ---
+  id:
+    identifier: true
+    description: Unique identifier, e.g. US_MOW_LAWN.
+    pattern: "^[A-Z][A-Z0-9_]+$"
+
+  title:
+    description: Short title.
+    required: true
+
+  description:
+    description: Multi-line description (Markdown allowed).
+
+  tags:
+    description: List of free-form tags used for filtering.
+    multivalued: true
+
+  status:
+    description: Lifecycle status.
+    range: StatusEnum
+
+  # Typed links — map 1:1 to sphinx-needs link types.
+  implements:
+    description: References one or more user stories or use cases this item realises.
+    multivalued: true
+
+  verifies:
+    description: References one or more needs this test verifies.
+    multivalued: true
+
+  derives:
+    description: References needs this item derives from.
+    multivalued: true
+
+  links:
+    description: Generic link (sphinx-needs `:links:`).
+    multivalued: true
+
+  # --- type-specific ---
+  area:
+    description: Garden area a user story applies to.
+    range: AreaEnum
+
+  start_date:
+    description: ISO start date for Gantt rendering.
+    pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+
+  duration:
+    description: Duration in days (Gantt).
+    range: integer
+
+# ---------------------------------------------------------------------------
+# Classes
+# ---------------------------------------------------------------------------
+
+classes:
+
+  Container:
+    description: >-
+      Tree-root container holding any combination of need collections.
+      Each ``*.yaml`` file under ``linkml/public/data/`` is validated as a
+      ``Container``; only the keys that are present need to be filled.
+      This class is technical glue for the validator only — it is not a
+      domain entity. The annotation `hidden_in_docs` instructs the
+      `schema-to-needs` renderer to skip it in the generated class
+      reference.
+    tree_root: true
+    annotations:
+      hidden_in_docs: true
+    attributes:
+      stories:
+        multivalued: true
+        inlined_as_list: true
+        range: UserStory
+      use_cases:
+        multivalued: true
+        inlined_as_list: true
+        range: UseCase
+      functional_requirements:
+        multivalued: true
+        inlined_as_list: true
+        range: FunctionalRequirement
+      non_functional_requirements:
+        multivalued: true
+        inlined_as_list: true
+        range: NonFunctionalRequirement
+      tests:
+        multivalued: true
+        inlined_as_list: true
+        range: Test
+      risks:
+        multivalued: true
+        inlined_as_list: true
+        range: Risk
+      decisions:
+        multivalued: true
+        inlined_as_list: true
+        range: Decision
+      glossary:
+        multivalued: true
+        inlined_as_list: true
+        range: GlossaryTerm
+
+  Need:
+    abstract: true
+    description: Abstract base class for any traceable item.
+    slots:
+      - id
+      - title
+      - description
+      - tags
+      - status
+      - links
+
+  UserStory:
+    is_a: Need
+    description: A short user-centric description of a desired outcome.
+    slots:
+      - area
+      - implements
+    slot_usage:
+      area:
+        required: true   # user stories must specify their garden area
+
+  UseCase:
+    is_a: Need
+    description: A concrete interaction scenario.
+    slots:
+      - implements
+      - start_date
+      - duration
+
+  FunctionalRequirement:
+    is_a: Need
+    description: A capability the system must provide.
+    slots:
+      - derives
+      - start_date
+      - duration
+
+  NonFunctionalRequirement:
+    is_a: Need
+    description: A constraint or quality attribute (e.g. noise, water use).
+    slots:
+      - derives
+      - start_date
+      - duration
+
+  Test:
+    is_a: Need
+    description: A test that verifies one or more requirements.
+    slots:
+      - verifies
+
+  Risk:
+    is_a: Need
+    description: An identified risk with potential impact on the project.
+
+  Decision:
+    is_a: Need
+    description: An architectural or organisational decision.
+
+  GlossaryTerm:
+    is_a: Need
+    description: A controlled vocabulary entry.

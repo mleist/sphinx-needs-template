@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# -----------------------------------------------------------------------------
+# Meta-package describing the entire template.
+# Individual converters (needs_from_linkml, schema_to_needs, reqif_bridge,
+# needs_to_jsonld, garden_helper) live as their own packages under src/public/
+# and are installed together via this pyproject (see tool.setuptools).
+# -----------------------------------------------------------------------------
+
+[project]
+name            = "sphinx-needs-template"
+version         = "0.1.0"
+description     = "Opinionated template for traceable requirements engineering with Sphinx, sphinx-needs, LinkML, ReqIF, JSON-LD and pytest coverage."
+readme          = "README.md"
+license         = { text = "BSD-3-Clause" }
+requires-python = ">=3.11"
+keywords        = ["sphinx", "sphinx-needs", "linkml", "reqif", "requirements", "traceability"]
+
+authors = [
+    { name = "sphinx-needs-template contributors" },
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Documentation",
+]
+
+dependencies = [
+    "sphinx>=8.0",
+    "sphinx-needs>=5.0",
+    "myst-parser>=4.0",
+    "sphinx-rtd-theme>=2.0",
+    "sphinxcontrib-plantuml>=0.30",
+    "sphinxcontrib-svg2pdfconverter>=1.2",
+    "linkml>=1.6",
+    "linkml-runtime>=1.6",
+    "pytest>=8.0",
+    "pyyaml>=6.0",
+    "rdflib>=7.0",
+    # Pillow is required by sphinxcontrib-plantuml whenever needflow / plantuml
+    # diagrams use scaling attributes; without it Sphinx emits a warning and
+    # silently drops the scale.
+    "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.5",
+    "sphinx-autobuild>=2024.4",
+]
+
+[project.scripts]
+needs-from-linkml = "needs_from_linkml.cli:main"
+schema-to-needs   = "schema_to_needs.cli:main"
+reqif-bridge      = "reqif_bridge.cli:main"
+needs-to-jsonld   = "needs_to_jsonld.cli:main"
+
+[project.urls]
+Homepage      = "https://github.com/your-org/sphinx-needs-template"
+Documentation = "https://github.com/your-org/sphinx-needs-template#readme"
+Issues        = "https://github.com/your-org/sphinx-needs-template/issues"
+
+# -----------------------------------------------------------------------------
+# Packaging: pull every public src package and the demo module under test.
+# -----------------------------------------------------------------------------
+[tool.setuptools.packages.find]
+where    = ["src/public"]
+include  = [
+    "needs_from_linkml*",
+    "schema_to_needs*",
+    "reqif_bridge*",
+    "needs_to_jsonld*",
+    "garden_helper*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/public", "tests/private"]
+pythonpath = ["src/public"]
+markers = [
+    "satisfies(req_id): test verifies a sphinx-needs requirement",
+]

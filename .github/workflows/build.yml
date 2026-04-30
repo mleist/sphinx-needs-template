@@ -1,0 +1,58 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install system dependencies (PlantUML)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y plantuml
+
+      - name: Install Python package
+        run: pip install -e ".[dev]"
+
+      - name: Generate reqs_gen/ from LinkML
+        run: make generate
+
+      - name: Build needs.json
+        run: make needs
+
+      - name: Run tests with coverage check
+        run: make test
+
+      - name: Build HTML (all views)
+        run: make html
+
+      - name: Export ReqIF
+        run: make reqif-export
+
+      - name: Export JSON-LD
+        run: make jsonld-export
+
+      - name: Upload HTML artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-views
+          path: docs/public/_build/html-*
+
+      - name: Upload exports
+        uses: actions/upload-artifact@v4
+        with:
+          name: exports
+          path: docs/public/_generated/*

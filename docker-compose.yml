@@ -1,0 +1,30 @@
+# =============================================================================
+# sphinx-needs-template — docker compose configuration
+#
+# Single service "builder" mounts the repo and runs all build / test / export
+# targets. Run any Makefile target inside the container, for example:
+#
+#   docker compose run --rm builder make all
+#   docker compose run --rm builder make html
+#   docker compose run --rm builder make pdf
+#   docker compose run --rm builder make test
+#   docker compose run --rm builder make reqif-export
+#
+# The container's /workspace is the bind-mounted host repo, so generated
+# files (HTML, PDF, JSON, ReqIF, JSON-LD) appear directly on the host under
+# docs/public/_build/ and docs/public/_generated/.
+# =============================================================================
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: sphinx-needs-template:latest
+    container_name: snt-builder
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    # Run as the host user so generated files aren't owned by root.
+    # Override on the command line: `docker compose run --rm -u $(id -u):$(id -g) builder ...`
+    command: ["make", "help"]

@@ -1,0 +1,65 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+*.egg
+
+# --- Sphinx build output ---
+docs/_build/
+docs/_generated/
+docs/public/_build/
+docs/public/_generated/
+
+# Note: docs/public/reqs_gen/ is INTENTIONALLY committed.
+# Contents are regenerated from linkml/public/data/ by `make generate`,
+# but we commit them so the repository renders correctly without a build step
+# (e.g. in browser-based GitHub previews and forks of the template).
+
+# --- Editor/IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+
+# --- Private user content ---
+# All `private/` directories are ignored by default. The `.gitkeep` file
+# inside each preserves the folder structure when forking the template.
+docs/private/*
+!docs/private/.gitkeep
+!docs/private/README.md
+
+src/private/*
+!src/private/.gitkeep
+!src/private/README.md
+
+linkml/private/*
+!linkml/private/.gitkeep
+!linkml/private/README.md
+
+tests/private/*
+!tests/private/.gitkeep
+!tests/private/README.md
+
+pictures/private/*
+!pictures/private/.gitkeep
+!pictures/private/README.md
+
+reqif/private/*
+!reqif/private/.gitkeep
+!reqif/private/README.md

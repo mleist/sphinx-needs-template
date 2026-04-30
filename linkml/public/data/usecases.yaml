@@ -1,0 +1,52 @@
+# =============================================================================
+# Demo use cases for the home-garden project.
+# Each use case implements one or more user stories. start_date and duration
+# are optional fields used by Gantt-style needbar / needgantt rendering.
+# =============================================================================
+
+use_cases:
+
+  - id: UC_MOW_BACK_LAWN
+    title: Mow the back-yard lawn
+    implements: [US_MOW_LAWN]
+    tags: [mowing]
+    status: accepted
+    start_date: "2026-05-02"
+    duration: 1
+    description: |-
+      Weekly Saturday morning routine.
+
+      1. Check weather and grass moisture (see `garden_helper.is_mowing_weather`).
+      2. Mow lawn in alternating directions.
+      3. Empty grass catcher into compost bin.
+      4. Sweep clippings off the patio.
+
+  - id: UC_PLANT_VEG_BED
+    title: Plant tomatoes and herbs in the vegetable bed
+    implements: [US_PLANT_VEGGIES]
+    tags: [planting]
+    status: in_progress
+    start_date: "2026-05-09"
+    duration: 2
+    description: |-
+      One-off planting day after the last frost.
+
+      1. Loosen and amend soil with compost.
+      2. Plant tomato seedlings 60 cm apart, stake each.
+      3. Sow basil and parsley seeds in the front row.
+      4. Water generously and apply mulch.
+
+  - id: UC_PREPARE_GARDEN_PARTY
+    title: Prepare the patio for a small garden party
+    implements: [US_HOST_PARTY, US_FRONT_LAWN_TRIM, US_PLANT_FLOWERS]
+    tags: [party_prep]
+    status: open
+    start_date: "2026-06-13"
+    duration: 7
+    description: |-
+      Week-long preparation leading up to the party day.
+
+      1. Refresh flower bed two weeks ahead.
+      2. Trim front-yard edges three days ahead.
+      3. Mow back-yard lawn the day before.
+      4. Set up tables, string lights and barbecue on party day.

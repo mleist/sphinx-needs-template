@@ -1,0 +1,1076 @@
+<?xml version='1.0' encoding='utf-8'?>
+<REQ-IF xmlns="http://www.omg.org/spec/ReqIF/20110401/reqif.xsd">
+  <THE-HEADER>
+    <REQ-IF-HEADER IDENTIFIER="hdr-9febe542-0db1-4c0b-b4f3-79eb0ea6c621">
+      <CREATION-TIME>2026-04-30T10:24:59.106632+00:00</CREATION-TIME>
+      <REQ-IF-TOOL-ID>sphinx-needs-template/reqif_bridge</REQ-IF-TOOL-ID>
+      <REQ-IF-VERSION>1.0</REQ-IF-VERSION>
+      <SOURCE-TOOL-ID>sphinx-needs-template</SOURCE-TOOL-ID>
+      <TITLE>Garden requirements export</TITLE>
+    </REQ-IF-HEADER>
+  </THE-HEADER>
+  <CORE-CONTENT>
+    <REQ-IF-CONTENT>
+      <DATATYPES>
+        <DATATYPE-DEFINITION-STRING IDENTIFIER="DT-STRING" MAX-LENGTH="32000" LONG-NAME="String" />
+      </DATATYPES>
+      <SPEC-TYPES>
+        <SPEC-OBJECT-TYPE IDENTIFIER="ST-NEED" LONG-NAME="Need">
+          <SPEC-ATTRIBUTES>
+            <ATTRIBUTE-DEFINITION-STRING IDENTIFIER="AD-FOREIGN-ID" LONG-NAME="ReqIF.ForeignID">
+              <TYPE>
+                <DATATYPE-DEFINITION-STRING-REF>DT-STRING</DATATYPE-DEFINITION-STRING-REF>
+              </TYPE>
+            </ATTRIBUTE-DEFINITION-STRING>
+            <ATTRIBUTE-DEFINITION-STRING IDENTIFIER="AD-NAME" LONG-NAME="ReqIF.Name">
+              <TYPE>
+                <DATATYPE-DEFINITION-STRING-REF>DT-STRING</DATATYPE-DEFINITION-STRING-REF>
+              </TYPE>
+            </ATTRIBUTE-DEFINITION-STRING>
+            <ATTRIBUTE-DEFINITION-STRING IDENTIFIER="AD-TEXT" LONG-NAME="ReqIF.Text">
+              <TYPE>
+                <DATATYPE-DEFINITION-STRING-REF>DT-STRING</DATATYPE-DEFINITION-STRING-REF>
+              </TYPE>
+            </ATTRIBUTE-DEFINITION-STRING>
+            <ATTRIBUTE-DEFINITION-STRING IDENTIFIER="AD-STATUS" LONG-NAME="Status">
+              <TYPE>
+                <DATATYPE-DEFINITION-STRING-REF>DT-STRING</DATATYPE-DEFINITION-STRING-REF>
+              </TYPE>
+            </ATTRIBUTE-DEFINITION-STRING>
+            <ATTRIBUTE-DEFINITION-STRING IDENTIFIER="AD-TAGS" LONG-NAME="Tags">
+              <TYPE>
+                <DATATYPE-DEFINITION-STRING-REF>DT-STRING</DATATYPE-DEFINITION-STRING-REF>
+              </TYPE>
+            </ATTRIBUTE-DEFINITION-STRING>
+          </SPEC-ATTRIBUTES>
+        </SPEC-OBJECT-TYPE>
+      </SPEC-TYPES>
+      <SPEC-OBJECTS>
+        <SPEC-OBJECT IDENTIFIER="CLS_DECISION">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_DECISION">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Decision">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="An architectural or organisational decision.&#10;&#10;**Slots**&#10;&#10;- `id` → `string`&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_FUNCTIONAL_REQUIREMENT">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_FUNCTIONAL_REQUIREMENT">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FunctionalRequirement">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="A capability the system must provide.&#10;&#10;**Slots**&#10;&#10;- `derives` → `string`&#10;- `start_date` → `string`&#10;- `duration` → `integer`&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_GLOSSARY_TERM">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_GLOSSARY_TERM">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="GlossaryTerm">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="A controlled vocabulary entry.&#10;&#10;**Slots**&#10;&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_NON_FUNCTIONAL_REQUIREMENT">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_NON_FUNCTIONAL_REQUIREMENT">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="NonFunctionalRequirement">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="A constraint or quality attribute (e.g. noise, water use).&#10;&#10;**Slots**&#10;&#10;- `derives` → `string`&#10;- `start_date` → `string`&#10;- `duration` → `integer`&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_RISK">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_RISK">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Risk">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="An identified risk with potential impact on the project.&#10;&#10;**Slots**&#10;&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_TEST">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_TEST">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Test">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="A test that verifies one or more requirements.&#10;&#10;**Slots**&#10;&#10;- `verifies` → `string`&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_USER_STORY">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_USER_STORY">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="UserStory">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="A short user-centric description of a desired outcome.&#10;&#10;**Slots**&#10;&#10;- `area` → `AreaEnum` *(required)*&#10;- `implements` → `string`&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="CLS_USE_CASE">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="CLS_USE_CASE">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="UseCase">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="A concrete interaction scenario.&#10;&#10;**Slots**&#10;&#10;- `implements` → `string`&#10;- `start_date` → `string`&#10;- `duration` → `integer`&#10;- `id` → `string` *(required)*&#10;- `title` → `string` *(required)*&#10;- `description` → `string`&#10;- `tags` → `string`&#10;- `status` → `StatusEnum`&#10;- `links` → `string`&#10;&#10;**Inherits from:** Need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="need">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="DEC_BATTERY_MOWER">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="DEC_BATTERY_MOWER">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Battery mower over petrol mower">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="We adopt a cordless battery mower for the back-yard lawn. Trade-off:&#10;shorter operating window per charge, but lower noise (helps with&#10;NFR_NOISE_WINDOW) and no fuel storage at home.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="DEC_ORGANIC_FERT">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="DEC_ORGANIC_FERT">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Use organic compost instead of mineral fertiliser">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="We use organic compost for the vegetable and flower beds. Trade-off: slower&#10;nutrient release in spring, but lower water-table contamination risk and&#10;better long-term soil structure.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="FR_FLOWER_PLAN">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FR_FLOWER_PLAN">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Flower-bed planting plan">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The system SHOULD generate a planting plan for the flower bed that lists&#10;species, quantities and spacing, given a target bloom date and the bed's&#10;dimensions.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting;party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="FR_FRONT_TRIM_LIST">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FR_FRONT_TRIM_LIST">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Trim-list generator">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The system SHOULD produce a checklist of trim locations (driveway edge,&#10;walkway edge, mailbox surround) so that the front yard is consistently&#10;prepared before any planned event.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing;party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="FR_HARVEST_ESTIMATE">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FR_HARVEST_ESTIMATE">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Harvest-day estimate">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Given a planting date and a maturity duration, the system MUST report the&#10;remaining days until harvest. The result is non-negative; produce that is&#10;already mature reports zero remaining days.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="implemented">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="FR_MOW_WEATHER">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FR_MOW_WEATHER">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Mowing-weather check">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The system MUST decide whether the lawn can be mowed today based on&#10;temperature and recent precipitation. Mowing is permitted only when the&#10;temperature is at or above 8 °C and there has been no rain in the&#10;previous reading window.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="implemented">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="FR_PARTY_CAPACITY">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FR_PARTY_CAPACITY">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Patio-capacity calculation">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The system MUST estimate how many guests can comfortably stand on the patio&#10;based on its area and a configurable area-per-guest factor (default 1.5 m²).&#10;Negative or zero areas yield a capacity of zero.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="implemented">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="FR_PARTY_TIMELINE">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="FR_PARTY_TIMELINE">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Party-task timeline">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The system SHOULD generate a backwards timeline of preparation tasks&#10;counting down to the party day (e.g. &quot;−14 days: refresh flower bed&quot;,&#10;&quot;−1 day: mow lawn&quot;).">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="G_MATURITY_DAYS">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="G_MATURITY_DAYS">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Maturity days">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The expected number of days from planting to harvestability for a given&#10;vegetable variety, as printed on seed packets. Used by&#10;`days_until_harvest()`.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="G_MOWING_WINDOW">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="G_MOWING_WINDOW">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Mowing window">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The legally and practically permissible time of day during which a power&#10;lawn mower may be operated in a residential area. See `NFR_NOISE_WINDOW`.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="G_PATIO">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="G_PATIO">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Patio">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="The paved area immediately behind the house, used for outdoor dining and&#10;hosting the small garden party.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="NFR_NOISE_WINDOW">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="NFR_NOISE_WINDOW">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Lawn-mower noise window">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Lawn mowing MUST happen between 09:00 and 18:00 on weekdays and between&#10;10:00 and 18:00 on Saturdays. Mowing is forbidden on Sundays and public&#10;holidays per local quiet-hours regulations.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="NFR_PARTY_LEAD_TIME">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="NFR_PARTY_LEAD_TIME">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Party preparation lead time">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Preparation activities (mowing, trimming, planting) MUST begin no later&#10;than 14 days before any planned garden party so that flower beds and lawn&#10;have time to recover and bloom.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="NFR_WATER_BUDGET">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="NFR_WATER_BUDGET">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Vegetable-bed water budget">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Watering of the vegetable bed MUST not exceed 30 litres per square metre&#10;per week during dry periods, to keep within the household's seasonal water&#10;allowance.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="RSK_PESTS_VEG">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="RSK_PESTS_VEG">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Pest damage to vegetable bed">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Aphids and slugs can decimate young tomato seedlings within days.&#10;Mitigation: install copper barriers, use companion planting (basil),&#10;and inspect plants every other morning.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="RSK_RAIN_PARTY">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="RSK_RAIN_PARTY">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Rain on party day">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Heavy rain on the planned party day would force the event indoors or&#10;require last-minute tent rental. Mitigation: monitor the forecast 7 days&#10;ahead and pre-book a tent if probability exceeds 40 %.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="UC_MOW_BACK_LAWN">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="UC_MOW_BACK_LAWN">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Mow the back-yard lawn">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Weekly Saturday morning routine.&#10;&#10;1. Check weather and grass moisture (see `garden_helper.is_mowing_weather`).&#10;2. Mow lawn in alternating directions.&#10;3. Empty grass catcher into compost bin.&#10;4. Sweep clippings off the patio.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="UC_PLANT_VEG_BED">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="UC_PLANT_VEG_BED">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Plant tomatoes and herbs in the vegetable bed">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="One-off planting day after the last frost.&#10;&#10;1. Loosen and amend soil with compost.&#10;2. Plant tomato seedlings 60 cm apart, stake each.&#10;3. Sow basil and parsley seeds in the front row.&#10;4. Water generously and apply mulch.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="in_progress">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="UC_PREPARE_GARDEN_PARTY">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="UC_PREPARE_GARDEN_PARTY">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Prepare the patio for a small garden party">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Week-long preparation leading up to the party day.&#10;&#10;1. Refresh flower bed two weeks ahead.&#10;2. Trim front-yard edges three days ahead.&#10;3. Mow back-yard lawn the day before.&#10;4. Set up tables, string lights and barbecue on party day.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="US_FRONT_LAWN_TRIM">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="US_FRONT_LAWN_TRIM">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Trim the front-yard edges before guests arrive">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="As a **homeowner** I want the lawn edges along the driveway and walkway&#10;trimmed before any planned event so that the front of the house looks&#10;well kept from the street.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing;party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="US_HOST_PARTY">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="US_HOST_PARTY">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Host a small garden party on the patio">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="As a **host** I want to set up tables, lighting and a barbecue area on&#10;the patio so that 10–15 guests can comfortably enjoy a Saturday&#10;afternoon garden party.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="US_MOW_LAWN">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="US_MOW_LAWN">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Keep the back-yard lawn freshly cut">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="As a **homeowner** I want my back-yard lawn mowed weekly during the&#10;growing season so that the lawn stays healthy and looks tidy when&#10;visitors arrive.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="accepted">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="mowing;weekly">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="US_PLANT_FLOWERS">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="US_PLANT_FLOWERS">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Refresh the flower bed with seasonal flowers">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="As a **homeowner** I want the front flower bed replanted with bright&#10;seasonal flowers two weeks before the garden party so that the&#10;arrangement is in full bloom by the time guests arrive.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="open">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting;party_prep">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+        <SPEC-OBJECT IDENTIFIER="US_PLANT_VEGGIES">
+          <TYPE>
+            <SPEC-OBJECT-TYPE-REF>ST-NEED</SPEC-OBJECT-TYPE-REF>
+          </TYPE>
+          <VALUES>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="US_PLANT_VEGGIES">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-FOREIGN-ID</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="Plant tomatoes and herbs in the vegetable bed">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-NAME</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="As a **hobby gardener** I want to plant tomatoes, basil and parsley in&#10;the south-facing vegetable bed in May so that I can harvest fresh&#10;produce throughout the summer.">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TEXT</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="in_progress">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-STATUS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+            <ATTRIBUTE-VALUE-STRING THE-VALUE="planting;spring">
+              <DEFINITION>
+                <ATTRIBUTE-DEFINITION-STRING-REF>AD-TAGS</ATTRIBUTE-DEFINITION-STRING-REF>
+              </DEFINITION>
+            </ATTRIBUTE-VALUE-STRING>
+          </VALUES>
+        </SPEC-OBJECT>
+      </SPEC-OBJECTS>
+    </REQ-IF-CONTENT>
+  </CORE-CONTENT>
+</REQ-IF>
