@@ -1,5 +1,7 @@
 # sphinx-needs-template
 
+[![build](https://github.com/mleist/sphinx-needs-template/actions/workflows/build.yml/badge.svg)](https://github.com/mleist/sphinx-needs-template/actions/workflows/build.yml)
+
 A small, opinionated template for traceable requirements engineering with
 **Sphinx**, **sphinx-needs**, **LinkML**, **ReqIF**, **JSON-LD** and
 **pytest**.
@@ -9,6 +11,12 @@ beds, hosting a small garden party) — it is meant to be deleted and replaced
 with your own content. The structure stays.
 
 > Licensed under [BSD-3-Clause](LICENSE).
+
+📖 **New here?** The
+[Getting Started guide](docs/public/getting_started.md) walks you
+through every moving part of the template — first build, six views,
+LinkML schema, adding your own user story / requirement / test, ReqIF
+and JSON-LD exports, public/private layout — in about 15 minutes.
 
 ## What this template gives you
 

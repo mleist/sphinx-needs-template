@@ -8,6 +8,7 @@ decisions and the glossary.
 :maxdepth: 2
 :caption: Contents
 
+getting_started
 reqs_gen/stories
 reqs_gen/usecases
 reqs/decisions

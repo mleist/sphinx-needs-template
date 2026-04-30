@@ -7,6 +7,7 @@ non-functional requirements, tests, the coverage matrix and risks.
 :maxdepth: 2
 :caption: Contents
 
+getting_started
 reqs/functional
 reqs/nonfunctional
 reqs/tests
