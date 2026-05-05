@@ -446,6 +446,35 @@ def _patch_needgantt_alias_styles() -> None:
     rather than via a closure-captured reference. We replace the entry
     for `Needgantt` so the dispatcher picks up the wrapper without us
     having to disconnect/reconnect the Sphinx event handler.
+
+    The wrapper performs three post-processing steps on the PlantUML
+    script that sphinx-needs builds:
+
+    1. **Project-start month fix** — corrects the off-by-one indexing
+       into `MONTH_NAMES` in sphinx-needs 8.0.0 that turns April into
+       "May", November into "December", and crashes on December. The
+       fix only triggers when the buggy expression is detected in the
+       installed `process_needgantt` source, so it self-disables when
+       upstream lands a fix.
+
+    2. **Style-line alias rewrite** — `[Title] is colored …` and
+       `[Title] is N% completed` become `[ID] is colored …` etc.
+       Reason: with sphinx-needs 8.x and PlantUML 1.2026.x, style
+       commands keyed on the display title get parsed as new task
+       definitions, which doubles every bar.
+
+    3. **Per-task start date injection** — for every need that has a
+       `start_date` field set, an extra line `[ID] starts the YYYY-MM-DD`
+       is inserted right after the task definition. Reason: sphinx-needs
+       8.x emits only `lasts N days` and never reads back the per-need
+       `start_date`, so PlantUML places every bar at the project origin
+       and chains them sequentially. Reading the field from `app.env`
+       and injecting an explicit `starts the` line restores correct
+       calendar placement.
+
+    All three rewrites become no-ops the day sphinx-needs upstream
+    fixes the underlying issues; the patch then leaves the script
+    untouched.
     """
     import re
     from sphinx_needs import needs as _sn_needs
@@ -457,8 +486,57 @@ def _patch_needgantt_alias_styles() -> None:
     # Matches a task-definition line and captures (title, id).
     _DEFINE_RE = re.compile(r"^\[(.+?)\] as \[([^\]]+)\] lasts ", re.MULTILINE)
 
-    def _rewrite_style_lines(uml: str) -> str:
-        """Replace `[Title] is …` style lines with `[ID] is …`."""
+    # ---- sphinx-needs 8.0.0 month off-by-one bug detection ----------------
+    # In sphinx-needs 8.0.0 (`needgantt.py` ~line 237) the project start
+    # line is built with `MONTH_NAMES[int(start_date.strftime("%m"))]`,
+    # but `MONTH_NAMES` is 0-indexed — so April (month 4) becomes "May",
+    # December crashes with IndexError. We probe the source string of
+    # `process_needgantt` for that exact buggy expression, so the fix
+    # self-disables the day sphinx-needs lands a correct version.
+    import inspect as _inspect
+    from sphinx_needs.utils import MONTH_NAMES as _MONTH_NAMES
+    try:
+        _ng_src = _inspect.getsource(_original)
+        _HAS_MONTH_BUG = (
+            'MONTH_NAMES[int(start_date.strftime("%m"))]' in _ng_src
+        )
+    except (OSError, TypeError):
+        _HAS_MONTH_BUG = False
+
+    _PROJECT_START_RE = re.compile(
+        r"^(Project starts the )(\d+)(th of )([A-Z][a-z]+)( \d{4})$",
+        re.MULTILINE,
+    )
+
+    def _shift_month_back(buggy_name: str) -> str | None:
+        """Return the month one position earlier in `MONTH_NAMES`, or
+        `None` if the input is not a recognised name. The bug shifts
+        every actual month forward by one, so January (the only name
+        that cannot occur as a buggy output) is the only edge case
+        we treat as "leave alone"."""
+        try:
+            idx = _MONTH_NAMES.index(buggy_name)
+        except ValueError:
+            return None
+        if idx == 0:
+            return None
+        return _MONTH_NAMES[idx - 1]
+    # ----------------------------------------------------------------------
+
+    def _rewrite_uml(uml: str, start_dates: dict[str, str]) -> str:
+        """Apply both style rewrite and start-date injection."""
+        # Step 0 — fix the buggy `Project starts the …` line emitted by
+        # sphinx-needs 8.0.0 (off-by-one into MONTH_NAMES). No-op when
+        # the bug isn't present in the installed version.
+        if _HAS_MONTH_BUG:
+            def _fix_project(m: "re.Match[str]") -> str:
+                prefix, day, mid, month, suffix = m.groups()
+                corrected = _shift_month_back(month)
+                if corrected is None:
+                    return m.group(0)
+                return f"{prefix}{day}{mid}{corrected}{suffix}"
+            uml = _PROJECT_START_RE.sub(_fix_project, uml)
+
         title_to_id: dict[str, str] = {
             m.group(1): m.group(2) for m in _DEFINE_RE.finditer(uml)
         }
@@ -468,15 +546,27 @@ def _patch_needgantt_alias_styles() -> None:
         out: list[str] = []
         for line in uml.splitlines():
             stripped = line.strip()
-            # We touch only style follow-up lines, not task definitions.
-            is_definition = " as [" in stripped and " lasts " in stripped
+
+            # Step 1 — task definition: keep as-is, but optionally insert
+            # a `[ID] starts the YYYY-MM-DD` line right after it.
+            def_match = _DEFINE_RE.match(stripped)
+            if def_match:
+                out.append(line)
+                _, need_id = def_match.group(1), def_match.group(2)
+                start_date = start_dates.get(need_id)
+                if start_date:
+                    indent = line[: len(line) - len(line.lstrip())]
+                    out.append(f"{indent}[{need_id}] starts {start_date}")
+                continue
+
+            # Step 2 — style follow-up lines: rewrite [Title] → [ID].
             is_color_cmd = stripped.startswith("[") and " is colored " in stripped
             is_completion_cmd = (
                 stripped.startswith("[")
                 and " is " in stripped
                 and "% completed" in stripped
             )
-            if not is_definition and (is_color_cmd or is_completion_cmd):
+            if is_color_cmd or is_completion_cmd:
                 m = re.match(r"^(\s*)\[(.+?)\](.*)$", line)
                 if m:
                     indent, title, rest = m.group(1), m.group(2), m.group(3)
@@ -484,8 +574,31 @@ def _patch_needgantt_alias_styles() -> None:
                         out.append(f"{indent}[{title_to_id[title]}]{rest}")
                         continue
             out.append(line)
+
         # Preserve a trailing newline if the original had one.
         return "\n".join(out) + ("\n" if uml.endswith("\n") else "")
+
+    def _collect_start_dates(app) -> dict[str, str]:  # noqa: ANN001
+        """Build a `need_id -> start_date` lookup from `app.env`.
+
+        Each plotted bar's start date comes from the LinkML data files or
+        from the hand-written `:start_date:` option on FR/NFR directives.
+        sphinx-needs stores it as a plain field on the resolved need.
+        """
+        try:
+            from sphinx_needs.data import SphinxNeedsData
+        except ImportError:
+            return {}
+        try:
+            needs = SphinxNeedsData(app.env).get_needs_view()
+        except Exception:  # pragma: no cover — env not ready yet
+            return {}
+        out: dict[str, str] = {}
+        for need_id, need in needs.items():
+            sd = need.get("start_date")
+            if sd:
+                out[need_id] = str(sd)
+        return out
 
     def _wrapped(app, doctree, fromdocname, found_nodes):  # noqa: ANN001
         result = _original(app, doctree, fromdocname, found_nodes)
@@ -493,11 +606,12 @@ def _patch_needgantt_alias_styles() -> None:
             from sphinxcontrib.plantuml import plantuml as _puml_node
         except ImportError:
             return result
+        start_dates = _collect_start_dates(app)
         for node in doctree.findall(_puml_node):
             uml = node.get("uml") or ""
             if "@startgantt" not in uml:
                 continue
-            node["uml"] = _rewrite_style_lines(uml)
+            node["uml"] = _rewrite_uml(uml, start_dates)
         return result
 
     # Replace both the function reference (so future imports see it) and
