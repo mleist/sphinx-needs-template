@@ -7,6 +7,7 @@ with its incoming `verifies` links from the test layer.
 :types: freq;nfreq
 :columns: id;title;status;incoming
 :style: table
+:colwidths: 25,40,15,20
 ```
 
 ## Flow diagram

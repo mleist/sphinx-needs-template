@@ -95,10 +95,16 @@ def pytest_runtest_logreport(report: pytest.TestReport) -> None:
     sat = _satisfies_by_test.get(report.nodeid, [])
     if not sat:
         return
-    test_id = "T_" + report.nodeid.replace("::", "_").replace("/", "_") \
-                                    .replace(".", "_").upper()
+    # Compact ID derived from the test function name only — keeps need IDs
+    # short enough to render legibly in PDF tables.
+    # ``tests/public/test_garden_helper.py::test_mowing_warm_and_dry_is_ok``
+    #   →  T_MOWING_WARM_AND_DRY_IS_OK
+    func_name = report.nodeid.rsplit("::", 1)[-1]
+    if func_name.startswith("test_"):
+        func_name = func_name[len("test_"):]
+    test_id = ("T_" + func_name.upper())[:60]
     _test_results.append({
-        "id":      test_id[:60],
+        "id":      test_id,
         "title":   report.nodeid,
         "status":  "passed" if report.passed else ("failed" if report.failed else "skipped"),
         "links":   sat,

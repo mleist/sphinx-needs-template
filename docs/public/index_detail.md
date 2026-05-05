@@ -10,6 +10,7 @@ non-functional requirements, tests, the coverage matrix and risks.
 getting_started
 reqs/functional
 reqs/nonfunctional
+reqs/schedule
 reqs/tests
 reqs/coverage
 reqs/risks

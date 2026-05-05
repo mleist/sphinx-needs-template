@@ -60,6 +60,7 @@ _OPTION_SLOTS_ORDER = [
     "area",
     "start_date",
     "duration",
+    "completion",
     "implements",
     "verifies",
     "derives",

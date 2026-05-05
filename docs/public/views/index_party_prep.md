@@ -10,6 +10,7 @@ need type.
 :tags: party_prep
 :columns: id;title;area;status
 :style: table
+:colwidths: 25,45,15,15
 ```
 
 ## Use Cases
@@ -19,6 +20,7 @@ need type.
 :tags: party_prep
 :columns: id;title;status;implements
 :style: table
+:colwidths: 25,40,15,20
 ```
 
 ## Functional Requirements
@@ -28,6 +30,7 @@ need type.
 :tags: party_prep
 :columns: id;title;status;derives;duration
 :style: table
+:colwidths: 25,35,15,20,10
 ```
 
 ## Non-Functional Requirements
@@ -55,6 +58,19 @@ need type.
 :tags: party_prep
 ```
 
+## Schedule
+
+Time-based view of every `party_prep` item that has a `start_date`.
+
+```{needgantt}
+:start_date: 2026-04-15
+:timeline: weekly
+:duration_option: duration
+:completion_option: completion
+:types: uc;freq
+:tags: party_prep
+```
+
 ```{toctree}
 :hidden:
 
@@ -62,6 +78,7 @@ need type.
 ../reqs_gen/usecases
 ../reqs/functional
 ../reqs/nonfunctional
+../reqs/schedule
 ../reqs/tests
 ../reqs/coverage
 ../reqs/risks

@@ -11,6 +11,7 @@ in `tests.md`.
 :derives: US_MOW_LAWN
 :start_date: 2026-04-15
 :duration: 2
+:completion: 100
 
 The system MUST decide whether the lawn can be mowed today based on
 temperature and recent precipitation. Mowing is permitted only when the
@@ -25,6 +26,7 @@ previous reading window.
 :derives: US_PLANT_VEGGIES
 :start_date: 2026-04-20
 :duration: 3
+:completion: 100
 
 Given a planting date and a maturity duration, the system MUST report the
 remaining days until harvest. The result is non-negative; produce that is
@@ -38,6 +40,7 @@ already mature reports zero remaining days.
 :derives: US_HOST_PARTY
 :start_date: 2026-05-01
 :duration: 2
+:completion: 100
 
 The system MUST estimate how many guests can comfortably stand on the patio
 based on its area and a configurable area-per-guest factor (default 1.5 m²).
@@ -51,6 +54,7 @@ Negative or zero areas yield a capacity of zero.
 :derives: US_FRONT_LAWN_TRIM
 :start_date: 2026-05-10
 :duration: 4
+:completion: 0
 
 The system SHOULD produce a checklist of trim locations (driveway edge,
 walkway edge, mailbox surround) so that the front yard is consistently
@@ -64,6 +68,7 @@ prepared before any planned event.
 :derives: US_PLANT_FLOWERS
 :start_date: 2026-05-20
 :duration: 5
+:completion: 0
 
 The system SHOULD generate a planting plan for the flower bed that lists
 species, quantities and spacing, given a target bloom date and the bed's
@@ -77,6 +82,7 @@ dimensions.
 :derives: US_HOST_PARTY
 :start_date: 2026-05-25
 :duration: 6
+:completion: 0
 
 The system SHOULD generate a backwards timeline of preparation tasks
 counting down to the party day (e.g. "T-14 days: refresh flower bed",

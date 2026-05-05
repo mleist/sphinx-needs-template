@@ -58,7 +58,7 @@ through automatically.
 
 ## 3. Open the views
 
-The build produced six independent HTML sites under
+The build produced seven independent HTML sites under
 `docs/public/_build/html-*/`. Open any `index.html` in a browser:
 
 | View         | Purpose                                                      |
@@ -69,9 +69,10 @@ The build produced six independent HTML sites under
 | `party_prep` | Cross-cutting filter: every artefact tagged `party_prep`.    |
 | `back_yard`  | Filtered by `area: back_yard`.                               |
 | `schema`     | Reference of every LinkML class.                             |
+| `schedule`   | Time-based view: Gantt charts of use cases and requirements. |
 
 ```{tip}
-The same source tree produces all six views by passing different
+The same source tree produces all seven views by passing different
 `-t view_<name>` flags to `sphinx-build`. The active tag selects a
 different `master_doc` and a different `exclude_patterns` set in
 `conf.py`, but every page text and every need lives only once on disk.
@@ -214,7 +215,33 @@ docker compose run --rm builder \
     reqif-bridge import reqif/private/customer.reqif -o /tmp/needs.json
 ```
 
-## 9. Put your private content under `*/private/`
+## 9. Read the schedule
+
+Open `docs/public/_build/html-schedule/index.html` (or, in any other
+view, the `Schedule` page in the table of contents). You'll see two
+Gantt charts — one for use cases, one for functional requirements — and
+a flat status table sorted by start date.
+
+Each bar is a need; its left edge is `start_date`, its width is
+`duration` in days, and the darker shading inside it is `completion`
+percent. Edit those fields in `linkml/public/data/usecases.yaml` or in
+`docs/public/reqs/functional.md`, rebuild, and the chart updates.
+
+```{note}
+**Concept — `{needgantt}` vs `{needtable}`.** `{needtable}` is the
+default rendering for any list of needs (rows + columns). `{needgantt}`
+adds a calendar dimension. Both pull from the same field set and the
+same filters; switching from one to the other only changes how the
+result is drawn, not what it contains.
+```
+
+The dedicated `schedule` view (`html-schedule/index.html`) lifts the
+schedule page to a master_doc, with two summary tables underneath the
+Gantt chart that list every use case and every requirement that has a
+`start_date` set. Reach for that view when you want a single
+deliverable for status meetings.
+
+## 10. Put your own content under `*/private/`
 
 Every important folder has a public/private split. The `public/`
 contents come with the template under BSD-3 and stay updateable. The
@@ -235,7 +262,65 @@ Useful private folders:
 Each of those folders has its own `README.md` with a short snippet
 showing how to wire it up.
 
-## 10. What to change next
+## 11. Switch to German output
+
+Set `DOCS_LANG=de` to flip the build to German:
+
+```bash
+docker compose run --rm -e DOCS_LANG=de builder make all
+```
+
+What this changes:
+
+- Sphinx UI strings: "Contents" → "Inhalt", "Search" → "Suche", chapter
+  headings ("CHAPTER" → "KAPITEL"), navigation buttons.
+- Need-type titles: "Use Case" → "Anwendungsfall", "Functional
+  Requirement" → "Funktionale Anforderung", "Risk" → "Risiko" etc.
+- Gantt-chart locale: month names ("May" → "Mai") and weekday
+  abbreviations ("Mo Tu We" → "Mo Di Mi"). This is forwarded to
+  PlantUML's in-script `language` directive.
+
+What this does *not* change: the demo content (user stories,
+requirements) stays in English. When you fork the template for a real
+German project you'll be writing German content anyway, and `DOCS_LANG`
+aligns the rendering around it.
+
+```{note}
+Only `en` (default) and `de` are supported out of the box. Adding more
+languages is a one-liner: extend the `_NEED_TYPE_TITLES` dict and the
+`_SUPPORTED_LANGS` set in `docs/public/conf.py`.
+```
+
+## 12. Brand the output (private theme overrides)
+
+Without forking the template, you can layer private theme assets on top
+of the public defaults. Drop any of these four files into
+`docs/private/` — each is optional, each is git-ignored:
+
+| File                              | Purpose                                                                       |
+| --------------------------------- | ----------------------------------------------------------------------------- |
+| `static/`                         | CSS, fonts, logos. Auto-added to `html_static_path`.                          |
+| `latex_preamble.tex`              | Appended to `latex_elements["preamble"]` — corp colours, custom title page.   |
+| `plantuml_preamble.iuml`          | Skin parameters loaded into every PlantUML diagram via `-config`.             |
+| `conf_overrides.py`               | Free-form Python; export `def update(globals_: dict) -> None`.                |
+
+Concrete example — switch to the Furo HTML theme without touching the
+public source:
+
+```python
+# docs/private/conf_overrides.py
+def update(globals_: dict) -> None:
+    globals_["html_theme"] = "furo"
+    globals_["html_logo"] = "_static/my_logo.png"
+```
+
+Then place `my_logo.png` under `docs/private/static/` and rebuild. The
+public template is unchanged; pulling upstream updates won't conflict
+with your branding.
+
+See `docs/private/README.md` for the full reference.
+
+## 13. What to change next
 
 Now that you've seen every moving part, here's what to customise to
 make the template your own.
@@ -268,11 +353,14 @@ example, the safe order is:
 5. The view files under `docs/public/views/` — adjust the filters to
    what your project actually needs.
 
-**Adding a new view.** The mapping is in three places: the `VIEWS`
-list in the `Makefile`, the `_master_doc_for` dict in
-`docs/public/conf.py`, and one new master_doc file under
-`docs/public/views/`. Follow the pattern of `index_party_prep.md` for
-a tag-based filter, or `index_back_yard.md` for an area-based filter.
+**Adding a new view.** The mapping is in four places: the `VIEWS`
+list in the `Makefile`, the `_master_doc_for` dict and
+`_active_view()` tuple in `docs/public/conf.py`, the
+`MASTER_DOC` dict in `docker/write_redirect.py`, and one new
+master_doc file under `docs/public/views/`. Follow the pattern of
+`index_party_prep.md` for a tag-based filter, or `index_back_yard.md`
+for an area-based filter, or `index_schedule.md` for a time-based
+view.
 
 ---
 

@@ -14,6 +14,7 @@ Tags (set by the Makefile via ``-t view_<name>``):
 - ``view_party_prep``     — cross-cutting filter on tag/area for the party
 - ``view_back_yard``      — only stories with ``area: back_yard``
 - ``view_schema``         — generated class reference
+- ``view_schedule``       — Gantt timeline of use cases and requirements
 
 Each view selects the matching index file as ``master_doc``. The default
 (no tag) builds the ``complete`` view.
@@ -40,6 +41,59 @@ release   = "0.1.0"
 HERE     = Path(__file__).resolve().parent
 REPO     = HERE.parent.parent
 sys.path.insert(0, str(REPO / "src" / "public"))
+
+# -----------------------------------------------------------------------------
+# Language switch (DOCS_LANG environment variable)
+# -----------------------------------------------------------------------------
+# DOCS_LANG=en (default)  → English UI strings, English Gantt labels
+# DOCS_LANG=de            → German Sphinx UI strings (TOC headings, search,
+#                           "Chapter" → "Kapitel", ...), German Gantt labels
+#                           ("May 2026" → "Mai 2026", "Mo Tu We" → "Mo Di Mi"),
+#                           and German need-type titles ("Use Case" →
+#                           "Anwendungsfall" etc.).
+#
+# Demo content (user stories, requirements, tests) stays in English regardless
+# of DOCS_LANG — that's a deliberate choice so the gardening example remains
+# consistent.  When you fork the template for a real German project, you'd
+# rewrite the content in your data files and toggle DOCS_LANG=de to align the
+# rendering.
+_SUPPORTED_LANGS = {"en", "de"}
+_DOCS_LANG = os.environ.get("DOCS_LANG", "en").lower()
+if _DOCS_LANG not in _SUPPORTED_LANGS:
+    raise RuntimeError(
+        f"DOCS_LANG={_DOCS_LANG!r} is not supported. "
+        f"Set it to one of: {sorted(_SUPPORTED_LANGS)}."
+    )
+language = _DOCS_LANG
+
+# Per-need-type titles. The directive name and prefix do NOT change — only
+# the human-readable title that appears in tables, headings and badges.
+# Add a row here when you introduce a new need type.
+_NEED_TYPE_TITLES = {
+    "en": {
+        "story":         "User Story",
+        "uc":            "Use Case",
+        "freq":          "Functional Requirement",
+        "nfreq":         "Non-Functional Requirement",
+        "test":          "Test",
+        "risk":          "Risk",
+        "decision":      "Decision",
+        "glossary_term": "Glossary Term",
+        "cls":           "LinkML Class",
+    },
+    "de": {
+        "story":         "User Story",                # eingebürgertes Fachwort
+        "uc":            "Anwendungsfall",
+        "freq":          "Funktionale Anforderung",
+        "nfreq":         "Nicht-funktionale Anforderung",
+        "test":          "Test",
+        "risk":          "Risiko",
+        "decision":      "Entscheidung",
+        "glossary_term": "Glossarbegriff",
+        "cls":           "LinkML-Klasse",
+    },
+}
+
 
 # -----------------------------------------------------------------------------
 # Extensions
@@ -70,7 +124,7 @@ myst_enable_extensions = [
 # The ``tags`` global is provided by Sphinx during build.
 def _active_view() -> str:
     for view in ("complete", "overview", "detail",
-                 "party_prep", "back_yard", "schema"):
+                 "party_prep", "back_yard", "schema", "schedule"):
         if tags.has(f"view_{view}"):  # noqa: F821 — provided by Sphinx
             return view
     return "complete"
@@ -85,6 +139,7 @@ _master_doc_for = {
     "party_prep": "views/index_party_prep",
     "back_yard":  "views/index_back_yard",
     "schema":     "views/index_schema",
+    "schedule":   "views/index_schedule",
 }
 master_doc = _master_doc_for[_VIEW]
 root_doc   = master_doc
@@ -146,21 +201,25 @@ latex_elements = {
 \usepackage{newunicodechar}
 \newunicodechar{−}{-}
 """,
+    # Allow line wrapping inside long inline-code spans (e.g. need IDs like
+    # ``T_MOWING_WARM_AND_DRY_IS_OK``) so they don't run past column edges
+    # in PDF tables.
+    "sphinxsetup": "verbatimwrapslines=true",
 }
 
 # -----------------------------------------------------------------------------
 # sphinx-needs configuration
 # -----------------------------------------------------------------------------
 needs_types = [
-    {"directive": "story",          "title": "User Story",                  "prefix": "US_",  "color": "#FFD8A8", "style": "node"},
-    {"directive": "uc",             "title": "Use Case",                    "prefix": "UC_",  "color": "#A8D8FF", "style": "node"},
-    {"directive": "freq",           "title": "Functional Requirement",      "prefix": "FR_",  "color": "#BFD8D2", "style": "node"},
-    {"directive": "nfreq",          "title": "Non-Functional Requirement",  "prefix": "NFR_", "color": "#D2BFD8", "style": "node"},
-    {"directive": "test",           "title": "Test",                        "prefix": "T_",   "color": "#D8D2BF", "style": "node"},
-    {"directive": "risk",           "title": "Risk",                        "prefix": "RSK_", "color": "#FFB8B8", "style": "node"},
-    {"directive": "decision",       "title": "Decision",                    "prefix": "DEC_", "color": "#B8FFB8", "style": "node"},
-    {"directive": "glossary_term",  "title": "Glossary Term",               "prefix": "G_",   "color": "#E0E0E0", "style": "node"},
-    {"directive": "cls",            "title": "LinkML Class",                "prefix": "CLS_", "color": "#C0E0FF", "style": "node"},
+    {"directive": "story",          "title": _NEED_TYPE_TITLES[language]["story"],         "prefix": "US_",  "color": "#FFD8A8", "style": "node"},
+    {"directive": "uc",             "title": _NEED_TYPE_TITLES[language]["uc"],            "prefix": "UC_",  "color": "#A8D8FF", "style": "node"},
+    {"directive": "freq",           "title": _NEED_TYPE_TITLES[language]["freq"],          "prefix": "FR_",  "color": "#BFD8D2", "style": "node"},
+    {"directive": "nfreq",          "title": _NEED_TYPE_TITLES[language]["nfreq"],         "prefix": "NFR_", "color": "#D2BFD8", "style": "node"},
+    {"directive": "test",           "title": _NEED_TYPE_TITLES[language]["test"],          "prefix": "T_",   "color": "#D8D2BF", "style": "node"},
+    {"directive": "risk",           "title": _NEED_TYPE_TITLES[language]["risk"],          "prefix": "RSK_", "color": "#FFB8B8", "style": "node"},
+    {"directive": "decision",       "title": _NEED_TYPE_TITLES[language]["decision"],      "prefix": "DEC_", "color": "#B8FFB8", "style": "node"},
+    {"directive": "glossary_term",  "title": _NEED_TYPE_TITLES[language]["glossary_term"], "prefix": "G_",   "color": "#E0E0E0", "style": "node"},
+    {"directive": "cls",            "title": _NEED_TYPE_TITLES[language]["cls"],           "prefix": "CLS_", "color": "#C0E0FF", "style": "node"},
 ]
 
 # Custom fields (sphinx-needs 5+ replaces the deprecated needs_extra_options
@@ -184,6 +243,10 @@ needs_fields = {
     "duration": {
         "description": "Duration in days (Gantt).",
         "schema": {"type": "integer", "minimum": 0},
+    },
+    "completion": {
+        "description": "Completion percentage for Gantt rendering (0-100).",
+        "schema": {"type": "integer", "minimum": 0, "maximum": 100},
     },
     "status": {
         "description": "Lifecycle status of a need.",
@@ -218,7 +281,7 @@ needs_links = {
 # -----------------------------------------------------------------------------
 _results_json = HERE / "_generated" / "test_results.json"
 _views_with_test_results = {
-    "complete", "detail", "party_prep", "back_yard", "schema",
+    "complete", "detail", "party_prep", "back_yard", "schema", "schedule",
 }
 if _results_json.exists() and _VIEW in _views_with_test_results:
     needs_external_needs = [
@@ -236,7 +299,48 @@ else:
 # PlantUML — discoverable on PATH inside the docker image and on most CIs.
 # -----------------------------------------------------------------------------
 plantuml_output_format = "svg"
-plantuml = os.environ.get("PLANTUML_CMD", "plantuml")
+plantuml_latex_output_format = "svg_pdf"
+# In LaTeX builds we want vector PDF embedding for sharp Gantt diagrams.
+# `svg_pdf` makes sphinxcontrib-plantuml emit SVG and then convert it to PDF
+# at build time using rsvg-convert (provided by `librsvg2-bin` in the image).
+plantuml_latex_output_format = "svg_pdf"
+
+# Build the PlantUML invocation. We use `-config <file>` to inject a small
+# preamble file that PlantUML loads before every diagram. The preamble
+# contains:
+#   - a `language <code>` line for non-English locales (Gantt month names,
+#     weekday abbreviations, ...)
+#   - any user-supplied skin parameters from
+#     `docs/private/plantuml_preamble.iuml`, if that file exists.
+# This is the supported PlantUML mechanism for global per-document settings.
+def _build_plantuml_preamble() -> str | None:
+    """Write a temporary PlantUML preamble file and return its absolute path.
+
+    Returns ``None`` if there is nothing to inject (English language and no
+    private preamble file). The caller appends ``-config <path>`` to the
+    `plantuml` command only when this returns a path.
+    """
+    lines: list[str] = []
+    if language and language != "en":
+        lines.append(f"language {language}")
+
+    private_preamble = HERE.parent / "private" / "plantuml_preamble.iuml"
+    if private_preamble.is_file():
+        # PlantUML can `!include` other files; using that directive keeps the
+        # preamble file authoritative and editable in place.
+        lines.append(f"!include {private_preamble}")
+
+    if not lines:
+        return None
+
+    out = HERE / "_generated" / "plantuml-preamble.iuml"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return str(out)
+
+_plantuml_cmd = os.environ.get("PLANTUML_CMD", "plantuml")
+_preamble = _build_plantuml_preamble()
+plantuml = f"{_plantuml_cmd} -config {_preamble}" if _preamble else _plantuml_cmd
 
 # -----------------------------------------------------------------------------
 # Suppress harmless warnings.
@@ -249,3 +353,52 @@ suppress_warnings = [
     "toc.excluded",
     "toc.not_readable",
 ]
+
+# -----------------------------------------------------------------------------
+# Private theme overrides (Hybrid B+C — see docs/private/README.md)
+#
+# Each of the four hooks below is OPTIONAL. When a file is present under
+# docs/private/, it is applied; when it is missing, the default behaviour
+# stays intact. This lets a user maintain their own corporate / project
+# theme outside the public template repository.
+#
+#   docs/private/static/                 → added to html_static_path
+#   docs/private/latex_preamble.tex      → appended to latex_elements["preamble"]
+#   docs/private/plantuml_preamble.iuml  → loaded by every PlantUML diagram
+#                                           (handled above in _build_plantuml_preamble)
+#   docs/private/conf_overrides.py       → free-form Python; exports
+#                                           `update(globals_: dict) -> None`
+# -----------------------------------------------------------------------------
+_PRIVATE_DIR = HERE.parent / "private"
+
+# 1. Static assets (CSS, fonts, logos) ---------------------------------------
+_private_static = _PRIVATE_DIR / "static"
+if _private_static.is_dir():
+    # html_static_path entries are resolved relative to the source dir
+    # (docs/public/), so we use a relative path string.
+    html_static_path = list(html_static_path) + [str(_private_static.relative_to(HERE))]
+
+# 2. LaTeX preamble snippet --------------------------------------------------
+_private_latex_preamble = _PRIVATE_DIR / "latex_preamble.tex"
+if _private_latex_preamble.is_file():
+    extra = _private_latex_preamble.read_text(encoding="utf-8")
+    latex_elements["preamble"] = (latex_elements.get("preamble", "") or "") + "\n" + extra
+
+# 3. Free-form Python overrides ----------------------------------------------
+# Imported via importlib (no exec()) so syntax errors surface with a useful
+# traceback. The module must define `update(globals_: dict) -> None`.
+_private_conf_overrides = _PRIVATE_DIR / "conf_overrides.py"
+if _private_conf_overrides.is_file():
+    import importlib.util as _ilu
+    _spec = _ilu.spec_from_file_location("private_conf_overrides",
+                                         _private_conf_overrides)
+    if _spec is not None and _spec.loader is not None:
+        _mod = _ilu.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        if hasattr(_mod, "update") and callable(_mod.update):
+            _mod.update(globals())
+        else:
+            raise RuntimeError(
+                f"{_private_conf_overrides} must define "
+                "`def update(globals_: dict) -> None`."
+            )

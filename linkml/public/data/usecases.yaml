@@ -13,6 +13,7 @@ use_cases:
     status: accepted
     start_date: "2026-05-02"
     duration: 1
+    completion: 100
     description: |-
       Weekly Saturday morning routine.
 
@@ -28,6 +29,7 @@ use_cases:
     status: in_progress
     start_date: "2026-05-09"
     duration: 2
+    completion: 60
     description: |-
       One-off planting day after the last frost.
 
@@ -43,6 +45,7 @@ use_cases:
     status: open
     start_date: "2026-06-13"
     duration: 7
+    completion: 0
     description: |-
       Week-long preparation leading up to the party day.
 

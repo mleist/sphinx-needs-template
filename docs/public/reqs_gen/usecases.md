@@ -9,6 +9,7 @@
 :tags: mowing
 :start_date: 2026-05-02
 :duration: 1
+:completion: 100
 :implements: US_MOW_LAWN
 
 Weekly Saturday morning routine.
@@ -25,6 +26,7 @@ Weekly Saturday morning routine.
 :tags: planting
 :start_date: 2026-05-09
 :duration: 2
+:completion: 60
 :implements: US_PLANT_VEGGIES
 
 One-off planting day after the last frost.
@@ -41,6 +43,7 @@ One-off planting day after the last frost.
 :tags: party_prep
 :start_date: 2026-06-13
 :duration: 7
+:completion: 0
 :implements: US_HOST_PARTY;US_FRONT_LAWN_TRIM;US_PLANT_FLOWERS
 
 Week-long preparation leading up to the party day.

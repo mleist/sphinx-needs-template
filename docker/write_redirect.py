@@ -20,6 +20,7 @@ MASTER_DOC = {
     "party_prep": "views/index_party_prep.html",
     "back_yard":  "views/index_back_yard.html",
     "schema":     "views/index_schema.html",
+    "schedule":   "views/index_schedule.html",
 }
 
 

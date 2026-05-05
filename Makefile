@@ -25,7 +25,7 @@ LINKML_SCHEMA  := linkml/public/schema/needs.yaml
 LINKML_DATA    := linkml/public/data
 REQS_GEN_DIR   := docs/public/reqs_gen
 
-VIEWS          := complete overview detail party_prep back_yard schema
+VIEWS          := complete overview detail party_prep back_yard schema schedule
 HTML_TARGETS   := $(addprefix html-,$(VIEWS))
 PDF_TARGETS    := $(addprefix pdf-,$(VIEWS))
 

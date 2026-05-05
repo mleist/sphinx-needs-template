@@ -32,6 +32,7 @@ A capability the system must provide.
 - `derives` → `string`
 - `start_date` → `string`
 - `duration` → `integer`
+- `completion` → `integer`
 - `id` → `string` *(required)*
 - `title` → `string` *(required)*
 - `description` → `string`
@@ -69,6 +70,7 @@ A constraint or quality attribute (e.g. noise, water use).
 - `derives` → `string`
 - `start_date` → `string`
 - `duration` → `integer`
+- `completion` → `integer`
 - `id` → `string` *(required)*
 - `title` → `string` *(required)*
 - `description` → `string`
@@ -124,6 +126,7 @@ A concrete interaction scenario.
 - `implements` → `string`
 - `start_date` → `string`
 - `duration` → `integer`
+- `completion` → `integer`
 - `id` → `string` *(required)*
 - `title` → `string` *(required)*
 - `description` → `string`

@@ -11,6 +11,7 @@ reqs_gen/stories
 reqs_gen/usecases
 reqs/functional
 reqs/nonfunctional
+reqs/schedule
 reqs/tests
 reqs/coverage
 reqs/risks

@@ -99,6 +99,14 @@ slots:
     description: Duration in days (Gantt).
     range: integer
 
+  completion:
+    description: >-
+      Completion percentage for Gantt rendering (0-100). Optional;
+      defaults to 0 when omitted.
+    range: integer
+    minimum_value: 0
+    maximum_value: 100
+
 # ---------------------------------------------------------------------------
 # Classes
 # ---------------------------------------------------------------------------
@@ -179,6 +187,7 @@ classes:
       - implements
       - start_date
       - duration
+      - completion
 
   FunctionalRequirement:
     is_a: Need
@@ -187,6 +196,7 @@ classes:
       - derives
       - start_date
       - duration
+      - completion
 
   NonFunctionalRequirement:
     is_a: Need
@@ -195,6 +205,7 @@ classes:
       - derives
       - start_date
       - duration
+      - completion
 
   Test:
     is_a: Need

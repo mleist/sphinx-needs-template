@@ -10,4 +10,5 @@ If the table is empty, run `make test` (or the full `make all`) once.
 :types: test
 :columns: id;title;status;links
 :style: table
+:colwidths: 25,45,10,20
 ```

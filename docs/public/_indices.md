@@ -9,6 +9,7 @@ full entry.
 :types: story
 :columns: id;title;area;status;tags
 :style: table
+:colwidths: 25,40,15,10,15
 ```
 
 ## Use Cases
@@ -17,6 +18,7 @@ full entry.
 :types: uc
 :columns: id;title;status;implements;tags
 :style: table
+:colwidths: 25,35,10,20,15
 ```
 
 ## Functional Requirements
@@ -25,6 +27,7 @@ full entry.
 :types: freq
 :columns: id;title;status;derives;duration
 :style: table
+:colwidths: 25,35,15,20,10
 ```
 
 ## Non-Functional Requirements
@@ -41,6 +44,7 @@ full entry.
 :types: test
 :columns: id;title;status;links
 :style: table
+:colwidths: 25,45,10,20
 ```
 
 ## Risks

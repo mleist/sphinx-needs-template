@@ -14,9 +14,10 @@ with your own content. The structure stays.
 
 📖 **New here?** The
 [Getting Started guide](docs/public/getting_started.md) walks you
-through every moving part of the template — first build, six views,
+through every moving part of the template — first build, seven views,
 LinkML schema, adding your own user story / requirement / test, ReqIF
-and JSON-LD exports, public/private layout — in about 15 minutes.
+and JSON-LD exports, the public/private layout, switching to German
+output, and adding private theme assets — in about 20 minutes.
 
 ## What this template gives you
 
