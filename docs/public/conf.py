@@ -402,3 +402,119 @@ if _private_conf_overrides.is_file():
                 f"{_private_conf_overrides} must define "
                 "`def update(globals_: dict) -> None`."
             )
+
+# -----------------------------------------------------------------------------
+# Monkey-patch: fix doubled Gantt bars with sphinx-needs 8.x + PlantUML 1.2026+
+#
+# Background
+# ~~~~~~~~~~
+# sphinx-needs 8.0.0 (`sphinx_needs/directives/needgantt.py`) builds the
+# PlantUML script for `{needgantt}` like this:
+#
+#   [Display title] as [NEED_ID] lasts N days        ← defines the task
+#   [Display title] is 100% completed                ← style command
+#   [Display title] is colored in #RRGGBB            ← style command
+#
+# In PlantUML 1.2026.x the gantt parser interprets a follow-up line that
+# starts with `[Display title]` as a NEW task definition because the
+# original task is registered under its alias `[NEED_ID]`. Each need ends
+# up rendered TWICE: once with the bar (right-anchored title), once
+# without a bar (left-anchored label) — the doubled-bar effect that
+# shows up in the SVG.
+#
+# Older PlantUML versions (e.g. 1.2020 from Ubuntu apt) silently
+# matched the title back to the existing alias and produced a single
+# bar. The strict matching in 1.2026 surfaces the mismatch.
+#
+# Fix
+# ~~~
+# We wrap `process_needgantt` and post-process its emitted ``uml`` string:
+# for every `[Display title] is colored in ...` and `[Display title] is
+# N% completed` line we substitute the display title with the matching
+# need ID, picking the mapping from the `as [ID]` part of the
+# task-definition lines that appear earlier in the same script.
+#
+# When sphinx-needs upstream fixes the bug (writing the alias directly
+# in style commands), the regex below will simply match nothing and the
+# patch becomes a no-op — no future cleanup needed.
+# -----------------------------------------------------------------------------
+def _patch_needgantt_alias_styles() -> None:
+    """Install the post-processing wrapper around process_needgantt.
+
+    sphinx-needs dispatches `{needgantt}` rendering through a dictionary
+    `sphinx_needs.needs.NODE_TYPES`, looked up at event-dispatch time
+    rather than via a closure-captured reference. We replace the entry
+    for `Needgantt` so the dispatcher picks up the wrapper without us
+    having to disconnect/reconnect the Sphinx event handler.
+    """
+    import re
+    from sphinx_needs import needs as _sn_needs
+    from sphinx_needs.directives import needgantt as _ng
+    from sphinx_needs.directives.needgantt import Needgantt
+
+    _original = _ng.process_needgantt
+
+    # Matches a task-definition line and captures (title, id).
+    _DEFINE_RE = re.compile(r"^\[(.+?)\] as \[([^\]]+)\] lasts ", re.MULTILINE)
+
+    def _rewrite_style_lines(uml: str) -> str:
+        """Replace `[Title] is …` style lines with `[ID] is …`."""
+        title_to_id: dict[str, str] = {
+            m.group(1): m.group(2) for m in _DEFINE_RE.finditer(uml)
+        }
+        if not title_to_id:
+            return uml
+
+        out: list[str] = []
+        for line in uml.splitlines():
+            stripped = line.strip()
+            # We touch only style follow-up lines, not task definitions.
+            is_definition = " as [" in stripped and " lasts " in stripped
+            is_color_cmd = stripped.startswith("[") and " is colored " in stripped
+            is_completion_cmd = (
+                stripped.startswith("[")
+                and " is " in stripped
+                and "% completed" in stripped
+            )
+            if not is_definition and (is_color_cmd or is_completion_cmd):
+                m = re.match(r"^(\s*)\[(.+?)\](.*)$", line)
+                if m:
+                    indent, title, rest = m.group(1), m.group(2), m.group(3)
+                    if title in title_to_id:
+                        out.append(f"{indent}[{title_to_id[title]}]{rest}")
+                        continue
+            out.append(line)
+        # Preserve a trailing newline if the original had one.
+        return "\n".join(out) + ("\n" if uml.endswith("\n") else "")
+
+    def _wrapped(app, doctree, fromdocname, found_nodes):  # noqa: ANN001
+        result = _original(app, doctree, fromdocname, found_nodes)
+        try:
+            from sphinxcontrib.plantuml import plantuml as _puml_node
+        except ImportError:
+            return result
+        for node in doctree.findall(_puml_node):
+            uml = node.get("uml") or ""
+            if "@startgantt" not in uml:
+                continue
+            node["uml"] = _rewrite_style_lines(uml)
+        return result
+
+    # Replace both the function reference (so future imports see it) and
+    # the dispatch table entry (so already-registered Sphinx handlers
+    # pick up the new function).
+    _ng.process_needgantt = _wrapped
+    _sn_needs.NODE_TYPES[Needgantt] = _wrapped
+
+
+# Install the patch at import time so it is in place before
+# Sphinx fires `builder-inited` and any other lifecycle events.
+_patch_needgantt_alias_styles()
+
+
+def setup(app):  # noqa: ANN001 (Sphinx API)
+    """Sphinx entry point. The monkey-patch is installed at module
+    import time (above); this `setup()` exists so Sphinx recognises
+    `conf.py` as an extension and can record the version metadata."""
+    return {"version": release, "parallel_read_safe": True,
+            "parallel_write_safe": True}
