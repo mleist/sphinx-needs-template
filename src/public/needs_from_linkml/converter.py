@@ -51,6 +51,11 @@ _PAGE_TITLE = {
     "GlossaryTerm":             "Glossary",
 }
 
+# LinkML classes for which the generator emits a level-2 markdown heading
+# (`## ID — TITLE`) in front of each need block. The heading puts the item
+# into the PDF table of contents as a sub-entry of the page title.
+_PER_ITEM_HEADING_CLASSES = {"UserStory", "UseCase"}
+
 # Fields that are part of the directive *option block* (``:foo: value`` lines).
 # Order matters for human readability and for stable diffs.
 _OPTION_SLOTS_ORDER = [
@@ -190,9 +195,20 @@ class NeedsFromLinkML:
             )
         d = item.data
         title = d.get("title", "")
+        item_id = d.get("id", "")
         body = (d.get("description") or "").strip()
 
         out: list[str] = []
+        # For user stories and use cases, emit a level-2 markdown heading
+        # before the need block so each item shows up in the PDF table of
+        # contents as a sub-entry of the page title. Format: `## ID — TITLE`.
+        # Functional and non-functional requirements are kept without a
+        # per-item heading on purpose — they are written by hand in
+        # `reqs/functional.md` and `reqs/nonfunctional.md`, where headings
+        # can be added directly when needed.
+        if item.cls in _PER_ITEM_HEADING_CLASSES and item_id and title:
+              out.append(f"## {item_id} — {title}")
+              out.append("")
         out.append(f"```{{{directive}}} {title}")
         for slot in _OPTION_SLOTS_ORDER:
             if slot not in d or d[slot] in (None, "", []):
