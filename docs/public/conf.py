@@ -200,6 +200,34 @@ latex_elements = {
     "preamble": r"""
 \usepackage{newunicodechar}
 \newunicodechar{−}{-}
+
+% Force every sphinx-needs box to span the full text width in PDF.
+%
+% sphinx-needs wraps each need in `\begin{sphinxuseclass}{need_container}`,
+% which expands to the environment `sphinxclassneed_container` if one is
+% defined. Inside, each need is a `tabulary` table opened with a balanced
+% `T` column and preceded by `\centering`:
+%
+%     \centering
+%     \begin{tabulary}{\linewidth}[t]{T} ...
+%
+% A `T` column only grows up to the natural width of its content, so a
+% need with little text renders as a narrow box, and `\centering` then
+% centres that narrow box on the page. We counter both causes:
+%
+%   1. `\tymin = \linewidth` forces the `T` column (hence the whole table)
+%      to occupy the full line width regardless of content.
+%   2. Redefining `\centering` to a no-op inside the environment stops the
+%      box from being centred if, for any content, it still ends up
+%      narrower than the line.
+%
+% Scope: only need boxes are wrapped in `need_container`; ordinary
+% {needtable} lists are not, so their column balancing is untouched.
+\newenvironment{sphinxclassneed_container}{%
+  \setlength{\tymin}{\linewidth}%
+  \renewcommand{\centering}{}%
+}{%
+}
 """,
     # Allow line wrapping inside long inline-code spans (e.g. need IDs like
     # ``T_MOWING_WARM_AND_DRY_IS_OK``) so they don't run past column edges
